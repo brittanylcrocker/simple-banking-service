@@ -1,0 +1,23 @@
+{
+  "name": "mablebackendcodetest",
+  "version": "1.0.0",
+  "description": "Mable Back End Code Challenge - Banking transfers system",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "start": "ts-node src/BankApp.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "ts-node": "^10.9.0",
+    "typescript": "^5.3.0",
+    "vitest": "^1.6.1"
+  },
+  "dependencies": {
+  }
+}
