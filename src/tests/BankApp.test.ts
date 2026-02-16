@@ -33,11 +33,11 @@ describe('BankApp integration', () => {
 
         expect(result.successful).toHaveLength(4);
         expect(result.skipped).toHaveLength(0);
-        expect(app.getAccount('1111234522226789')!.balance).toBe(4820.50);
-        expect(app.getAccount('1111234522221234')!.balance).toBe(9974.40);
-        expect(app.getAccount('2222123433331212')!.balance).toBe(1550);
-        expect(app.getAccount('1212343433335665')!.balance).toBe(1725.60);
-        expect(app.getAccount('3212343433335755')!.balance).toBe(48679.50);
+        expect(app.getAccount('1111234522226789')!.balance.toFixed(2)).toBe('4820.50');
+        expect(app.getAccount('1111234522221234')!.balance.toFixed(2)).toBe('9974.40');
+        expect(app.getAccount('2222123433331212')!.balance.toFixed(2)).toBe('1550.00');
+        expect(app.getAccount('1212343433335665')!.balance.toFixed(2)).toBe('1725.60');
+        expect(app.getAccount('3212343433335755')!.balance.toFixed(2)).toBe('48679.50');
     });
 
     it('skips transfers that would overdraw an account', () => {
@@ -55,7 +55,7 @@ describe('BankApp integration', () => {
 
         expect(result.successful).toHaveLength(0);
         expect(result.skipped).toHaveLength(1);
-        expect(app.getAccount('1111111111111111')!.balance).toBe(100);
-        expect(app.getAccount('2222222222222222')!.balance).toBe(50);
+        expect(app.getAccount('1111111111111111')!.balance.toFixed(2)).toBe('100.00');
+        expect(app.getAccount('2222222222222222')!.balance.toFixed(2)).toBe('50.00');
     });
 });

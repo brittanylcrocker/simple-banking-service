@@ -39,16 +39,13 @@ export class TransferService {
             return false;
         }
 
-        const creditResult = toAccount.credit(transfer.amount);
-        if (!creditResult) {
-            // if crediting account fails, refund the debit
-            const refundResult = fromAccount.credit(transfer.amount);
-            if (!refundResult) {
-                console.log(`Handle exception: Failed to refund debit for account ${fromAccount.accountNumber}`);
-            }
+        try {
+            toAccount.credit(transfer.amount);
+        } catch {
+            // refund the debit
+            fromAccount.credit(transfer.amount);
             return false;
         }
-
         return true;
     }
 }

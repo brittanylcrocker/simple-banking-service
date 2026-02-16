@@ -19,5 +19,6 @@
     "vitest": "^1.6.1"
   },
   "dependencies": {
+    "decimal.js": "^10.6.0"
   }
 }

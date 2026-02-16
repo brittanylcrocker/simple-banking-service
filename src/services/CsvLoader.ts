@@ -1,4 +1,5 @@
 import * as fs from 'fs';
+import Decimal from 'decimal.js';
 import { Account } from '../models/Account';
 import { Transfer } from '../models/Transfer';
 
@@ -8,7 +9,7 @@ export class CsvLoader {
 
         return lines.map((line) => {
             const [accountNumber, balance] = line.split(',').map((s) => s.trim());
-            return new Account(accountNumber, Number(balance));
+            return new Account(accountNumber, new Decimal(balance));
         });
     }
 
@@ -17,7 +18,7 @@ export class CsvLoader {
 
         return lines.map((line) => {
             const [from, to, amount] = line.split(',').map((s) => s.trim());
-            return { from, to, amount: Number(amount) };
+            return { from, to, amount: new Decimal(amount) };
         });
     }
 

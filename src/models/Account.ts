@@ -1,46 +1,41 @@
-// // account balance
-// // should this store the updated account balance or be a one time process
-
-// // store updated account balance as csv, date.now() to know which file is latest
+import Decimal from "decimal.js";
 
 export class Account {
-    private balanceDollars: number;
+    private balanceDollars: Decimal;
 
-    constructor(public readonly accountNumber: string, balanceDollars: number) {
-        if (balanceDollars < 0) {
-            // Unexpected error
+    constructor(public readonly accountNumber: string, balanceDollars: Decimal | number) {
+        const balance = new Decimal(balanceDollars);
+        if (balance.lt(0)) {
             throw new Error('Balance cannot be negative');
         }
-        this.balanceDollars = balanceDollars;
+        this.balanceDollars = balance;
     }
 
-    get balance(): number {
+    get balance(): Decimal {
         return this.balanceDollars;
     }
 
-
-    debit(amount: number): boolean {
-        if (amount <= 0) {
-            // Unexpected error
+    debit(_amount: Decimal | number): boolean {
+        const amount = new Decimal(_amount);
+        if (amount.lte(0)) {
             throw new Error('Amount cannot be zero or negative');
         }
 
-        if (amount > this.balanceDollars) {
-            console.log(`Amount is greater than balance for account ${this.accountNumber}`);
+        if (amount.gt(this.balanceDollars)) {
             return false;
         }
 
-        this.balanceDollars -= amount;
+        this.balanceDollars = this.balanceDollars.minus(amount);
         return true;
     }
 
-    credit(amount: number): boolean {
-        if (amount <= 0) {
-            // Unexpected error
+    credit(_amount: Decimal | number): boolean {
+        const amount = new Decimal(_amount);
+        if (amount.lte(0)) {
             throw new Error('Amount cannot be zero or negative');
         }
 
-        this.balanceDollars += amount;
+        this.balanceDollars = this.balanceDollars.plus(amount);
         return true;
     }
 }
